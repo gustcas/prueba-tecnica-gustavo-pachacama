@@ -10,7 +10,8 @@ export function authMiddleware(req: AuthRequest, res: Response, next: NextFuncti
     const token = header.startsWith('Bearer ') ? header.slice(7) : '';
 
     if (!token) {
-        return res.status(401).json({ message: 'No autorizado.' });
+        console.warn(`[auth] 401 token ausente ${req.method} ${req.originalUrl}`);
+        return res.status(401).json({ message: 'No autorizado: token requerido.' });
     }
 
     try {
@@ -18,15 +19,18 @@ export function authMiddleware(req: AuthRequest, res: Response, next: NextFuncti
         req.user = { id: payload.sub, role: payload.role };
         return next();
     } catch (error) {
-        return res.status(401).json({ message: 'Token invalido.' });
+        console.warn(`[auth] 401 token invalido ${req.method} ${req.originalUrl}`);
+        return res.status(401).json({ message: 'No autorizado: token invalido.' });
     }
 }
 
 export function requireRole(roles: string[]) {
     return (req: AuthRequest, res: Response, next: NextFunction) => {
-        const role = req.user?.role;
-        if (!role || !roles.includes(role)) {
-            return res.status(403).json({ message: 'No autorizado.' });
+        const role = (req.user?.role || '').toLowerCase();
+        const allowed = roles.map((item) => item.toLowerCase());
+        if (!role || !allowed.includes(role)) {
+            console.warn(`[auth] 403 rol insuficiente role=${req.user?.role || 'none'} path=${req.originalUrl}`);
+            return res.status(403).json({ message: 'No autorizado: rol insuficiente.' });
         }
         return next();
     };
