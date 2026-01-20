@@ -13,7 +13,7 @@ router.get('/', requireRole(['admin', 'gestor']), async (_req, res) => {
     return res.json(items);
 });
 
-router.post('/', requireRole(['gestor']), async (req, res) => {
+router.post('/', requireRole(['gestor', 'admin']), async (req, res) => {
     const schema = z.object({ clientId: z.string().uuid(), insuranceTypeId: z.string().uuid(), amount: z.number().positive() });
     const parsed = schema.safeParse(req.body);
     if (!parsed.success) {
@@ -28,7 +28,7 @@ router.post('/', requireRole(['gestor']), async (req, res) => {
     return res.status(201).json(result.clientInsurance);
 });
 
-router.patch('/:id', requireRole(['gestor']), async (req, res) => {
+router.patch('/:id', requireRole(['gestor', 'admin']), async (req, res) => {
     const schema = z.object({ status: z.string().optional(), endDate: z.string().datetime().optional() });
     const parsed = schema.safeParse(req.body);
     if (!parsed.success) {
@@ -48,7 +48,7 @@ router.patch('/:id', requireRole(['gestor']), async (req, res) => {
     return res.json(result.clientInsurance);
 });
 
-router.delete('/:id', requireRole(['gestor']), async (req, res) => {
+router.delete('/:id', requireRole(['gestor', 'admin']), async (req, res) => {
     await clientInsuranceService.deleteClientInsurance(req.params.id);
     return res.json({ ok: true });
 });
