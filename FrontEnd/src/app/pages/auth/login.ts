@@ -76,8 +76,10 @@ export class Login {
 
     submit() {
         this.authService.login(this.email, this.password).subscribe({
-            next: () => {
-                this.router.navigate(['/dashboard']);
+            next: (response) => {
+                const role = response?.user?.role;
+                const target = role === 'gestor' ? '/clients' : '/dashboard';
+                this.router.navigate([target]);
             },
             error: (err) => {
                 const message = err?.error?.message || 'Error al iniciar sesion.';

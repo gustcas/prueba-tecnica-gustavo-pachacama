@@ -16,7 +16,7 @@ export const appRoutes: Routes = [
         component: AppLayout,
         children: [
             { path: '', component: Dashboard },
-            { path: 'dashboard', component: Dashboard, canMatch: [roleGuard(['admin'])] },
+            { path: 'dashboard', component: Dashboard, canMatch: [roleGuard(['gestor', 'admin'])] },
             { path: 'admin/users', component: AdminUsers, canMatch: [roleGuard(['admin'])] },
             { path: 'admin/roles', component: AdminRoles, canMatch: [roleGuard(['admin'])] },
             { path: 'admin/menus', component: AdminMenus, canMatch: [roleGuard(['admin'])] },
