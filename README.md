@@ -30,8 +30,9 @@ Solucion full-stack con microservicios:
 2) API Node (gestion):
    - `cd Backend/api-management-node`
    - `npm install`
-   - `npm run dev`
    - `npm run seed`
+   - `npm run dev`
+
 
 3) API .NET (eventos):
    - `cd Backend/api-events-dotnet`
