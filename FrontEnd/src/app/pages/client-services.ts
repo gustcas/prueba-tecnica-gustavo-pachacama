@@ -14,37 +14,41 @@ import { ClientServiceAssignmentApiService } from './service/client-service-assi
     standalone: true,
     imports: [CommonModule, FormsModule, ButtonModule, SelectModule, TableModule],
     template: `
-        <div class="card">
-            <h5>Gestion de servicios</h5>
-            <div class="grid mb-4">
-                <div class="col-12 md:col-4">
-                    <label class="block mb-2">Cliente</label>
-                    <p-select [options]="clients()" optionLabel="email" optionValue="id" [(ngModel)]="selectedClientId" (onChange)="loadHistory()" />
+        <div class="page-wrap">
+            <div class="form-shell">
+                <h5>Gestion de servicios</h5>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Cliente</label>
+                        <p-select [options]="clients()" optionLabel="email" optionValue="id" [(ngModel)]="selectedClientId" (onChange)="loadHistory()" />
+                    </div>
+                    <div class="form-field">
+                        <label>Servicio</label>
+                        <p-select [options]="services()" optionLabel="name" optionValue="id" [(ngModel)]="selectedServiceId" />
+                    </div>
                 </div>
-                <div class="col-12 md:col-4">
-                    <label class="block mb-2">Servicio</label>
-                    <p-select [options]="services()" optionLabel="name" optionValue="id" [(ngModel)]="selectedServiceId" />
-                </div>
-                <div class="col-12 md:col-4 flex items-end gap-2">
+                <div class="form-actions">
                     <p-button label="Asignar" (onClick)="assign()"></p-button>
                     <p-button label="Cancelar" severity="danger" (onClick)="cancel()"></p-button>
                 </div>
-            </div>
 
-            <div class="grid mb-4">
-                <div class="col-12 md:col-4">
-                    <label class="block mb-2">Servicio actual</label>
-                    <p-select [options]="services()" optionLabel="name" optionValue="id" [(ngModel)]="reassign.currentServiceId" />
+                <div class="form-grid form-grid-gap">
+                    <div class="form-field">
+                        <label>Servicio actual</label>
+                        <p-select [options]="services()" optionLabel="name" optionValue="id" [(ngModel)]="reassign.currentServiceId" />
+                    </div>
+                    <div class="form-field">
+                        <label>Nuevo servicio</label>
+                        <p-select [options]="services()" optionLabel="name" optionValue="id" [(ngModel)]="reassign.newServiceId" />
+                    </div>
                 </div>
-                <div class="col-12 md:col-4">
-                    <label class="block mb-2">Nuevo servicio</label>
-                    <p-select [options]="services()" optionLabel="name" optionValue="id" [(ngModel)]="reassign.newServiceId" />
-                </div>
-                <div class="col-12 md:col-4 flex items-end">
+                <div class="form-actions">
                     <p-button label="Reasignar" severity="secondary" (onClick)="reassignService()"></p-button>
                 </div>
             </div>
+        </div>
 
+        <div class="card">
             <p-table [value]="historyServices()" [rows]="10" [paginator]="true">
                 <ng-template #header>
                     <tr>

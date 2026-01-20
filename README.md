@@ -50,6 +50,9 @@ Solucion full-stack con microservicios:
 ## Variables de entorno
 Ver `Backend/api-management-node/.env.example`.
 
+## Data inicial
+Ejecuta `npm run seed` en `Backend/api-management-node` para crear roles, menus, usuarios, clientes y polizas de ejemplo.
+
 ## Capturas sugeridas
 - Login
 - Welcome (datos usuario + ultima sesion)

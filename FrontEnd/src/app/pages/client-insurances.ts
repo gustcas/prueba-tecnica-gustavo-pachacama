@@ -15,26 +15,30 @@ import { InsuranceTypeService, InsuranceTypeDto } from './service/insurance-type
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ButtonModule, SelectModule, InputNumberModule],
     template: `
-        <div class="card">
-            <h5>Asignar poliza</h5>
-            <div class="grid mb-4">
-                <div class="col-12 md:col-5">
-                    <label class="block mb-2">Cliente</label>
-                    <p-select [options]="clients()" optionLabel="email" optionValue="id" [(ngModel)]="form.clientId" />
+        <div class="page-wrap">
+            <div class="form-shell">
+                <h5>Asignar poliza</h5>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Cliente</label>
+                        <p-select [options]="clients()" optionLabel="email" optionValue="id" [(ngModel)]="form.clientId" />
+                    </div>
+                    <div class="form-field">
+                        <label>Tipo de seguro</label>
+                        <p-select [options]="types()" optionLabel="name" optionValue="id" [(ngModel)]="form.insuranceTypeId" />
+                    </div>
+                    <div class="form-field span-2">
+                        <label>Monto</label>
+                        <p-inputnumber [(ngModel)]="form.amount" [min]="0" mode="currency" currency="USD" />
+                    </div>
                 </div>
-                <div class="col-12 md:col-5">
-                    <label class="block mb-2">Tipo de seguro</label>
-                    <p-select [options]="types()" optionLabel="name" optionValue="id" [(ngModel)]="form.insuranceTypeId" />
-                </div>
-                <div class="col-12 md:col-2">
-                    <label class="block mb-2">Monto</label>
-                    <p-inputnumber [(ngModel)]="form.amount" [min]="0" mode="currency" currency="USD" />
-                </div>
-                <div class="col-12 md:col-2 flex items-end">
+                <div class="form-actions">
                     <p-button label="Asignar" (onClick)="assign()"></p-button>
                 </div>
             </div>
+        </div>
 
+        <div class="card">
             <p-table [value]="items()" [rows]="10" [paginator]="true">
                 <ng-template #header>
                     <tr>

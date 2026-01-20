@@ -56,12 +56,15 @@ export class MenuService {
             const list = byParent.get(parentId) || [];
             return list
                 .sort((a, b) => a.order - b.order)
-                .map((menu) => ({
-                    label: menu.label,
-                    icon: menu.icon || undefined,
-                    routerLink: menu.routerLink ? [menu.routerLink] : undefined,
-                    items: build(menu.id)
-                }));
+                .map((menu) => {
+                    const children = build(menu.id);
+                    return {
+                        label: menu.label,
+                        icon: menu.icon || undefined,
+                        routerLink: menu.routerLink ? [menu.routerLink] : undefined,
+                        items: children.length > 0 ? children : undefined
+                    };
+                });
         };
 
         return build(null);

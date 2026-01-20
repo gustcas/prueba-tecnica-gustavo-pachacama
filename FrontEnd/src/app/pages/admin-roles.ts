@@ -12,22 +12,26 @@ import { RoleService, RoleDto } from './service/role.service';
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ButtonModule, InputTextModule],
     template: `
-        <div class="card">
-            <h5>Roles</h5>
-            <div class="grid mb-4">
-                <div class="col-12 md:col-4">
-                    <label class="block mb-2">Nombre</label>
-                    <input pInputText [(ngModel)]="form.name" />
+        <div class="page-wrap">
+            <div class="form-shell">
+                <h5>Roles</h5>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Nombre</label>
+                        <input pInputText [(ngModel)]="form.name" />
+                    </div>
+                    <div class="form-field">
+                        <label>Descripcion</label>
+                        <input pInputText [(ngModel)]="form.description" />
+                    </div>
                 </div>
-                <div class="col-12 md:col-6">
-                    <label class="block mb-2">Descripcion</label>
-                    <input pInputText [(ngModel)]="form.description" />
-                </div>
-                <div class="col-12 md:col-2 flex items-end">
+                <div class="form-actions">
                     <p-button label="Crear" (onClick)="createRole()"></p-button>
                 </div>
             </div>
+        </div>
 
+        <div class="card">
             <p-table [value]="roles()" [rows]="10" [paginator]="true">
                 <ng-template #header>
                     <tr>

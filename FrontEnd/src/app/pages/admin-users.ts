@@ -16,31 +16,35 @@ import { RoleService, RoleDto } from './service/role.service';
     imports: [CommonModule, FormsModule, TableModule, ButtonModule, InputTextModule, SelectModule, TagModule],
     template: `
         <div class="flex flex-col gap-6">
-            <div class="card">
-                <h5>Crear usuario</h5>
-                <div class="grid">
-                    <div class="col-12 md:col-3">
-                        <label class="block mb-2">Nombres</label>
-                        <input pInputText [(ngModel)]="form.firstName" />
+            <div class="page-wrap">
+                <div class="form-shell">
+                    <h5>Crear usuario</h5>
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label>Nombres</label>
+                            <input pInputText [(ngModel)]="form.firstName" />
+                        </div>
+                        <div class="form-field">
+                            <label>Apellidos</label>
+                            <input pInputText [(ngModel)]="form.lastName" />
+                        </div>
+                        <div class="form-field">
+                            <label>Identificacion</label>
+                            <input pInputText [(ngModel)]="form.identification" />
+                        </div>
+                        <div class="form-field">
+                            <label>Password</label>
+                            <input pInputText type="password" [(ngModel)]="form.password" />
+                        </div>
+                        <div class="form-field">
+                            <label>Rol</label>
+                            <p-select [options]="roles()" optionLabel="name" optionValue="id" [(ngModel)]="form.roleId" placeholder="Seleccione" />
+                        </div>
                     </div>
-                    <div class="col-12 md:col-3">
-                        <label class="block mb-2">Apellidos</label>
-                        <input pInputText [(ngModel)]="form.lastName" />
-                    </div>
-                    <div class="col-12 md:col-3">
-                        <label class="block mb-2">Identificacion</label>
-                        <input pInputText [(ngModel)]="form.identification" />
-                    </div>
-                    <div class="col-12 md:col-3">
-                        <label class="block mb-2">Password</label>
-                        <input pInputText type="password" [(ngModel)]="form.password" />
-                    </div>
-                    <div class="col-12 md:col-3">
-                        <label class="block mb-2">Rol</label>
-                        <p-select [options]="roles()" optionLabel="name" optionValue="id" [(ngModel)]="form.roleId" placeholder="Seleccione" />
+                    <div class="form-actions">
+                        <p-button label="Crear" (onClick)="createUser()"></p-button>
                     </div>
                 </div>
-                <p-button label="Crear" class="mt-3" (onClick)="createUser()"></p-button>
             </div>
 
             <div class="card">
@@ -48,11 +52,11 @@ import { RoleService, RoleDto } from './service/role.service';
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-center gap-3">
                         <span class="font-medium">Filtro</span>
-                        <input pInputText type="text" placeholder="Buscar..." (input)="onGlobalFilter($event)" />
+                        <input pInputText type="text" class="w-full" placeholder="Buscar..." (input)="onGlobalFilter($event)" />
                     </div>
                     <div class="flex items-center gap-3">
-                        <p-select [options]="roles()" optionLabel="name" optionValue="name" placeholder="Rol" (onChange)="onRoleFilter($event)" />
-                        <p-select [options]="statusOptions" optionLabel="label" optionValue="value" placeholder="Estado" (onChange)="onStatusFilter($event)" />
+                        <p-select [options]="roles()" optionLabel="name" optionValue="name" placeholder="Rol" (onChange)="onRoleFilter($event)" styleClass="w-full" />
+                        <p-select [options]="statusOptions" optionLabel="label" optionValue="value" placeholder="Estado" (onChange)="onStatusFilter($event)" styleClass="w-full" />
                     </div>
                 </div>
                 <p-table #dt [value]="users()" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20]" [globalFilterFields]="['firstName','lastName','email','systemUsername','status','role.name']">
@@ -72,10 +76,10 @@ import { RoleService, RoleDto } from './service/role.service';
                             <td>{{ user.email }}</td>
                             <td>{{ user.systemUsername }}</td>
                             <td>
-                                <p-select [options]="roles()" optionLabel="name" optionValue="id" [(ngModel)]="user.role.id"></p-select>
+                                <p-select [options]="roles()" optionLabel="name" optionValue="id" [(ngModel)]="user.role.id" styleClass="w-full"></p-select>
                             </td>
                             <td>
-                                <p-select [options]="statusOptions" optionLabel="label" optionValue="value" [(ngModel)]="user.status"></p-select>
+                                <p-select [options]="statusOptions" optionLabel="label" optionValue="value" [(ngModel)]="user.status" styleClass="w-full"></p-select>
                             </td>
                             <td>
                                 <p-button label="Guardar" (onClick)="saveUser(user)" size="small"></p-button>

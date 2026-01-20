@@ -14,34 +14,38 @@ import { InsuranceTypeService, InsuranceTypeDto } from './service/insurance-type
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ButtonModule, InputTextModule, InputNumberModule, SelectModule],
     template: `
-        <div class="card">
-            <h5>Tipos de seguro</h5>
-            <div class="grid mb-4">
-                <div class="col-12 md:col-5">
-                    <label class="block mb-2">Nombre</label>
-                    <input pInputText [(ngModel)]="form.name" />
+        <div class="page-wrap">
+            <div class="form-shell">
+                <h5>Tipos de seguro</h5>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Nombre</label>
+                        <input pInputText [(ngModel)]="form.name" />
+                    </div>
+                    <div class="form-field">
+                        <label>Descripcion</label>
+                        <input pInputText [(ngModel)]="form.description" />
+                    </div>
+                    <div class="form-field">
+                        <label>Segmento</label>
+                        <p-select [options]="segmentOptions" optionLabel="label" optionValue="value" [(ngModel)]="form.segment" />
+                    </div>
+                    <div class="form-field">
+                        <label>Min</label>
+                        <p-inputnumber [(ngModel)]="form.minAmount" [min]="0" mode="currency" currency="USD" />
+                    </div>
+                    <div class="form-field">
+                        <label>Max</label>
+                        <p-inputnumber [(ngModel)]="form.maxAmount" [min]="0" mode="currency" currency="USD" />
+                    </div>
                 </div>
-                <div class="col-12 md:col-5">
-                    <label class="block mb-2">Descripcion</label>
-                    <input pInputText [(ngModel)]="form.description" />
-                </div>
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Segmento</label>
-                    <p-select [options]="segmentOptions" optionLabel="label" optionValue="value" [(ngModel)]="form.segment" />
-                </div>
-                <div class="col-12 md:col-2">
-                    <label class="block mb-2">Min</label>
-                    <p-inputnumber [(ngModel)]="form.minAmount" [min]="0" mode="currency" currency="USD" />
-                </div>
-                <div class="col-12 md:col-2">
-                    <label class="block mb-2">Max</label>
-                    <p-inputnumber [(ngModel)]="form.maxAmount" [min]="0" mode="currency" currency="USD" />
-                </div>
-                <div class="col-12 md:col-2 flex items-end">
+                <div class="form-actions">
                     <p-button label="Crear" (onClick)="createType()"></p-button>
                 </div>
             </div>
+        </div>
 
+        <div class="card">
             <p-table [value]="items()" [rows]="10" [paginator]="true">
                 <ng-template #header>
                     <tr>

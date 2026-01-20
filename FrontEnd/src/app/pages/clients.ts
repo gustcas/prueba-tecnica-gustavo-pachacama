@@ -14,51 +14,55 @@ import { ClientApiService, ClientDto } from './service/client-api.service';
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ButtonModule, InputTextModule, SelectModule, DialogModule],
     template: `
-        <div class="card">
-            <h5>Registrar cliente</h5>
-            <div class="grid">
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Tipo</label>
-                    <p-select [options]="typeOptions" optionLabel="label" optionValue="value" [(ngModel)]="form.type" />
+        <div class="page-wrap">
+            <div class="form-shell">
+                <h5>Registrar cliente</h5>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Tipo</label>
+                        <p-select [options]="typeOptions" optionLabel="label" optionValue="value" [(ngModel)]="form.type" />
+                    </div>
+                    <div class="form-field">
+                        <label>Identificacion</label>
+                        <p-select [options]="idTypeOptions" optionLabel="label" optionValue="value" [(ngModel)]="form.identificationType" />
+                    </div>
+                    <div class="form-field">
+                        <label>Numero</label>
+                        <input pInputText [(ngModel)]="form.identification" />
+                    </div>
+                    <div class="form-field">
+                        <label>Email</label>
+                        <input pInputText [(ngModel)]="form.email" />
+                    </div>
+                    <div class="form-field">
+                        <label>Nombres</label>
+                        <input pInputText [(ngModel)]="form.firstName" />
+                    </div>
+                    <div class="form-field">
+                        <label>Apellidos</label>
+                        <input pInputText [(ngModel)]="form.lastName" />
+                    </div>
+                    <div class="form-field">
+                        <label>Empresa</label>
+                        <input pInputText [(ngModel)]="form.companyName" />
+                    </div>
+                    <div class="form-field" *ngIf="form.type === 'company'">
+                        <label>Tamano empresa</label>
+                        <p-select [options]="companySizeOptions" optionLabel="label" optionValue="value" [(ngModel)]="form.companySize" />
+                    </div>
+                    <div class="form-field">
+                        <label>Telefono</label>
+                        <input pInputText [(ngModel)]="form.phone" />
+                    </div>
+                    <div class="form-field span-2">
+                        <label>Direccion</label>
+                        <input pInputText [(ngModel)]="form.address" />
+                    </div>
                 </div>
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Identificacion</label>
-                    <p-select [options]="idTypeOptions" optionLabel="label" optionValue="value" [(ngModel)]="form.identificationType" />
-                </div>
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Numero</label>
-                    <input pInputText [(ngModel)]="form.identification" />
-                </div>
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Email</label>
-                    <input pInputText [(ngModel)]="form.email" />
-                </div>
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Nombres</label>
-                    <input pInputText [(ngModel)]="form.firstName" />
-                </div>
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Apellidos</label>
-                    <input pInputText [(ngModel)]="form.lastName" />
-                </div>
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Empresa</label>
-                    <input pInputText [(ngModel)]="form.companyName" />
-                </div>
-                <div class="col-12 md:col-3" *ngIf="form.type === 'company'">
-                    <label class="block mb-2">Tamano empresa</label>
-                    <p-select [options]="companySizeOptions" optionLabel="label" optionValue="value" [(ngModel)]="form.companySize" />
-                </div>
-                <div class="col-12 md:col-3">
-                    <label class="block mb-2">Telefono</label>
-                    <input pInputText [(ngModel)]="form.phone" />
-                </div>
-                <div class="col-12">
-                    <label class="block mb-2">Direccion</label>
-                    <input pInputText class="w-full" [(ngModel)]="form.address" />
+                <div class="form-actions">
+                    <p-button label="Guardar" (onClick)="createClient()"></p-button>
                 </div>
             </div>
-            <p-button label="Guardar" class="mt-3" (onClick)="createClient()"></p-button>
         </div>
 
         <div class="card">

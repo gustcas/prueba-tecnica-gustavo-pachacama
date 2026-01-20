@@ -39,7 +39,7 @@ import { MessageService } from 'primeng/api';
                                     />
                                 </g>
                             </svg>
-                            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome to PrimeLand!</div>
+                            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Bienvenido</div>
                             <span class="text-muted-color font-medium">Sign in to continue</span>
                         </div>
 
@@ -72,12 +72,12 @@ export class Login {
 
     checked: boolean = false;
 
-    constructor(private authService: AuthService, private router: Router, private messageService: MessageService) {}
+    constructor(private authService: AuthService, private router: Router, private messageService: MessageService) { }
 
     submit() {
         this.authService.login(this.email, this.password).subscribe({
             next: () => {
-                this.router.navigate(['/welcome']);
+                this.router.navigate(['/dashboard']);
             },
             error: (err) => {
                 const message = err?.error?.message || 'Error al iniciar sesion.';
