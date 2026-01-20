@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:17
+    container_name: insurance_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: insurance_management
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  mongo:
+    image: mongo:6
+    container_name: insurance_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: insurance_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@local.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+volumes:
+  pgdata:
+  mongodata:

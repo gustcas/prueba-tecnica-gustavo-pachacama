@@ -1,0 +1,21 @@
+# Node
+node_modules/
+dist/
+npm-debug.log*
+yarn-error.log*
+
+# Angular
+.angular/
+out/
+
+# .NET
+bin/
+obj/
+
+# Env
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
