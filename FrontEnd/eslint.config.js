@@ -1,3 +1,4 @@
+
 export default {
     root: true,
     ignorePatterns: ['**/dist/**'],
